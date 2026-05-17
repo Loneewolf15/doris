@@ -12,9 +12,10 @@
     <div class="cur-dot" id="cDot"></div>
     <div class="cur-ring" id="cRing"></div>
     <canvas id="bg-stars" class="visible"></canvas>
-    
+    <!-- No rain canvas on this page — rain is index.html only -->
+
     <audio id="bgm" loop>
-        <source src="https://commons.wikimedia.org/wiki/Special:FilePath/Happy_Birthday_to_You_(piano).ogg" type="audio/ogg"/>
+        <source src="assets/audio/happy_birthday.mp3" type="audio/mpeg"/>
     </audio>
 
     <button class="music-pill paused" id="mBtn">
@@ -24,48 +25,73 @@
 
     <div class="page-dots" id="pageDots"></div>
 
-    <div class="page dark-page" id="p2">
+    <div class="page dark-page active" id="p2">
         <div class="neb" style="width:60vw;height:40vw;max-width:580px;background:rgba(107,142,240,.1);top:-5%;right:-10%;"></div>
         <div class="neb" style="width:45vw;height:35vw;max-width:460px;background:rgba(232,84,122,.08);bottom:0;left:-5%;"></div>
         <div class="cosmos-planet pl-w1"></div>
         <div class="cosmos-planet pl-w2"></div>
         <div class="shoot shoot-1" style="animation-delay:1s;"></div>
+
         <div class="ch-lbl rose">Radiance</div>
         <h2 class="sec-title"><em>Her beauty</em><br/>captured in time</h2>
+
+        <!--
+            HEART GRID — 8 photos total
+            Photo 8 = large glowing centre card — use her BEST photo here.
+            Photos 1–7 = outer ring.
+        -->
         <div class="photo-grid">
+
+            <!-- Outer photo 1 — top-left bump -->
             <div class="pc" data-caption="A smile that lights up the room">
                 <img src="assets/img/doris_1.jpg" class="pc-img" alt="Memory 1"/>
                 <div class="pc-glass"></div>
             </div>
+
+            <!-- Outer photo 2 — top-right bump -->
             <div class="pc" data-caption="Effortlessly stunning">
                 <img src="assets/img/doris_2.jpg" class="pc-img" alt="Memory 2"/>
                 <div class="pc-glass"></div>
             </div>
+
+            <!-- Outer photo 3 — left shoulder -->
             <div class="pc" data-caption="Grace in every moment">
                 <img src="assets/img/doris_3.jpg" class="pc-img" alt="Memory 3"/>
                 <div class="pc-glass"></div>
             </div>
-            <div class="pc" data-caption="The center of my universe">
+
+            <!-- Outer photo 4 — right shoulder -->
+            <div class="pc" data-caption="Pure elegance">
                 <img src="assets/img/doris_4.jpg" class="pc-img" alt="Memory 4"/>
                 <div class="pc-glass"></div>
             </div>
-            <div class="pc" data-caption="Pure elegance">
+
+            <!-- Outer photo 5 — left wing -->
+            <div class="pc" data-caption="Radiating joy">
                 <img src="assets/img/doris_5.jpg" class="pc-img" alt="Memory 5"/>
                 <div class="pc-glass"></div>
             </div>
-            <div class="pc" data-caption="Radiating joy">
+
+            <!-- Outer photo 6 — right wing -->
+            <div class="pc" data-caption="Unforgettable beauty">
                 <img src="assets/img/doris_6.jpg" class="pc-img" alt="Memory 6"/>
                 <div class="pc-glass"></div>
             </div>
-            <div class="pc" data-caption="Unforgettable beauty">
+
+            <!-- Outer photo 7 — bottom tip (wide) -->
+            <div class="pc" data-caption="The center of my universe">
                 <img src="assets/img/doris_7.jpg" class="pc-img" alt="Memory 7"/>
                 <div class="pc-glass"></div>
             </div>
+
+            <!-- CENTER CARD (8th) — large glowing hero photo -->
             <div class="pc" data-caption="Simply perfect">
-                <img src="assets/img/doris_8.jpg" class="pc-img" alt="Memory 8"/>
+                <img src="assets/img/doris_8.jpg" class="pc-img" alt="Center"/>
                 <div class="pc-glass"></div>
             </div>
+
         </div>
+
         <a href="letter.html" class="pg-next">
             <svg viewBox="0 0 10 10" fill="none"><path d="M5 1L9 5L5 9M1 5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
             Next
@@ -83,36 +109,27 @@
 
     <script src="assets/js/main.js"></script>
     <script>
+        /* Try music on load */
         window.addEventListener('load', () => {
             if (typeof tryMusic === 'function') tryMusic();
         });
 
-        // Lightbox Logic
-        const modal = document.getElementById('lbModal');
-        const lbImg = document.getElementById('lbImg');
-        const lbCap = document.getElementById('lbCap');
+        /* Lightbox */
+        const modal   = document.getElementById('lbModal');
+        const lbImg   = document.getElementById('lbImg');
+        const lbCap   = document.getElementById('lbCap');
         const lbClose = document.getElementById('lbClose');
-        const pcs = document.querySelectorAll('.pc');
 
-        pcs.forEach(pc => {
+        document.querySelectorAll('.pc').forEach(pc => {
             pc.addEventListener('click', () => {
-                const img = pc.querySelector('.pc-img').src;
-                const cap = pc.getAttribute('data-caption');
-                lbImg.src = img;
-                lbCap.textContent = cap;
+                lbImg.src         = pc.querySelector('.pc-img').src;
+                lbCap.textContent = pc.getAttribute('data-caption');
                 modal.classList.add('active');
             });
         });
 
-        lbClose.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
+        lbClose.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
     </script>
 </body>
 </html>
