@@ -39,13 +39,8 @@
             <div class="mc"><div class="mc-num">01</div><h3 class="mc-head">You are rare, Doris.</h3><p class="mc-body">Not everyone gets to meet someone like you — someone who carries warmth in their words, light in their laugh, and love in everything they do without even trying. The world genuinely became better the day you were born into it.</p></div>
             <div class="mc blue"><div class="mc-num">02</div><h3 class="mc-head">Your strength is extraordinary.</h3><p class="mc-body">You've faced things that would have broken others, and you came through with your head up and spirit intact. I've watched you carry weight without complaint and keep going when stopping would've been easier. That resilience is one of the most beautiful things about you.</p></div>
             <div class="mc"><div class="mc-num">03</div><h3 class="mc-head">Your chapter is just beginning.</h3><p class="mc-body">Everything you've built, endured, and grown through has been preparation — not punishment. This birthday isn't just a milestone, it's an opening. The best of your story is still ahead, and I'm so honoured to have a front row seat.</p></div>
-            <div class="mc blue"><div class="mc-num">04</div><h3 class="mc-head">Thank you for being my person.</h3><p class="mc-body">Thank you for the late night calls, the laughs that made no sense out of context, the honesty even when it was uncomfortable. For showing up. For being the kind of friend people write songs about — the steady kind, the real kind.</p></div>
+            <div class="mc blue"><div class="mc-num">04</div><h3 class="mc-head">Thank you for being my person.</h3><p class="mc-body">Thank you for your friendship, the laughs that made no sense out of context, the honesty even when it was uncomfortable. For showing up. For being yourself.</p></div>
             <div class="mc"><div class="mc-num">05</div><h3 class="mc-head">Happy birthday, Doris.</h3><p class="mc-body">On this day, I hope you feel every bit of the love you pour into others — returned to you tenfold. May this year bring you everything you've prayed for, worked for, and deserve. I'm rooting for you with everything I've got. Always.</p></div>
-        </div>
-        <div class="msg-nav">
-            <button class="mnav-btn" id="mPrev" disabled>&#8592;</button>
-            <button class="mnav-btn" id="mNext">&#8594;</button>
-            <span class="mnav-ctr" id="mCtr">1 / 5</span>
         </div>
         <a href="wishes.html" class="pg-next">
             <svg viewBox="0 0 10 10" fill="none"><path d="M5 1L9 5L5 9M1 5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -55,12 +50,6 @@
 
     <script src="assets/js/main.js"></script>
     <script>
-        const mTrack = document.getElementById('mTrack'), mcards = [...mTrack.querySelectorAll('.mc')];
-        const mPrev = document.getElementById('mPrev'), mNext = document.getElementById('mNext'), mCtr = document.getElementById('mCtr');
-        let ci = 0;
-        function goCard(n) { ci = Math.max(0, Math.min(n, mcards.length - 1)); mcards[ci].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' }); mPrev.disabled = ci === 0; mNext.disabled = ci === mcards.length - 1; mCtr.textContent = `${ci + 1} / ${mcards.length}`; }
-        mPrev.addEventListener('click', () => goCard(ci - 1)); mNext.addEventListener('click', () => goCard(ci + 1));
-        let mst; mTrack.addEventListener('scroll', () => { clearTimeout(mst); mst = setTimeout(() => { const gap = parseInt(getComputedStyle(mTrack).gap) || 0; const w = mcards[0].offsetWidth + gap; ci = Math.max(0, Math.min(Math.round(mTrack.scrollLeft / w), mcards.length - 1)); mPrev.disabled = ci === 0; mNext.disabled = ci === mcards.length - 1; mCtr.textContent = `${ci + 1} / ${mcards.length}`; }, 80); }, { passive: true });
 
         window.addEventListener('load', () => {
             if (typeof tryMusic === 'function') tryMusic();
