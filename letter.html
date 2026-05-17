@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>A Letter for You — Doris' Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Italiana&family=Lato:wght@300;400&family=Alex+Brush&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="cur-dot" id="cDot"></div>
+    <div class="cur-ring" id="cRing"></div>
+    <canvas id="bg-stars" class="visible"></canvas>
+    
+    <audio id="bgm" loop>
+        <source src="https://commons.wikimedia.org/wiki/Special:FilePath/Happy_Birthday_to_You_(piano).ogg" type="audio/ogg"/>
+    </audio>
+
+    <button class="music-pill paused" id="mBtn">
+        <div class="mbars"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>
+        <span id="mLbl">Play music</span>
+    </button>
+
+    <div class="page-dots" id="pageDots"></div>
+
+    <div class="page dark-page" id="p3">
+        <div class="letter-ruled"></div>
+        <div class="neb" style="width:60vw;height:40vw;max-width:580px;background:rgba(107,142,240,.1);top:-5%;right:-10%;"></div>
+        <div class="neb" style="width:45vw;height:35vw;max-width:460px;background:rgba(232,84,122,.08);bottom:0;left:-5%;"></div>
+        <div class="cosmos-planet pl-w1"></div>
+        <div class="cosmos-planet pl-w2"></div>
+        <div class="shoot shoot-1" style="animation-delay:1s;"></div>
+        <div class="ch-lbl rose">From the heart</div>
+        <h2 class="sec-title"><em>A letter</em><br/>written for you</h2>
+        <div class="letter-paper">
+            <div class="letter-date" id="lDate"></div>
+            <div class="letter-sal">Dearest Doris,</div>
+            <div id="tw"><span class="tcur"></span></div>
+            <div class="letter-sign">With all my love 💗</div>
+        </div>
+        <a href="love.html" class="pg-next">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M5 1L9 5L5 9M1 5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Next
+        </a>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        const twText = `I want you to know that knowing you has been one of the genuine privileges of my life.
+
+Not everyone is built the way you are — with that particular combination of softness and steel, of warmth and wisdom, of humour and depth. You hold space for people. You show up. You give generously, even when you're running on empty yourself.
+
+You've been through things that would have quieted most people. But you're still here — still laughing, still dreaming, still full of that impossible, unreasonable hope that things are going to be okay. They are, Doris. More than okay.
+
+This year is yours. Completely, unapologetically yours. I'm praying for every good thing you deserve to find its way to you — and there is so much you deserve.
+
+I'm grateful for you. Today, tomorrow, always.`;
+
+        let twStarted = false;
+        function startTW() {
+            if (twStarted) return; twStarted = true;
+            const el = document.getElementById('tw');
+            el.innerHTML = '<span class="tcur"></span>';
+            let i = 0; const cur = el.querySelector('.tcur');
+            const iv = setInterval(() => {
+                if (i >= twText.length) { clearInterval(iv); return; }
+                el.insertBefore(document.createTextNode(twText[i]), cur);
+                i++;
+            }, 27);
+        }
+
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const nd = new Date();
+        document.getElementById('lDate').textContent = `${months[nd.getMonth()]} ${nd.getDate()}, ${nd.getFullYear()}`;
+
+        window.addEventListener('load', () => {
+            if (typeof tryMusic === 'function') tryMusic();
+            setTimeout(startTW, 800);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>For Doris — Happy Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Italiana&family=Lato:wght@300;400&family=Alex+Brush&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="cur-dot" id="cDot"></div>
+    <div class="cur-ring" id="cRing"></div>
+    <canvas id="bg-stars" class="visible"></canvas>
+    
+    <audio id="bgm" loop>
+        <source src="https://commons.wikimedia.org/wiki/Special:FilePath/Happy_Birthday_to_You_(piano).ogg" type="audio/ogg"/>
+    </audio>
+
+    <button class="music-pill paused" id="mBtn">
+        <div class="mbars"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>
+        <span id="mLbl">Play music</span>
+    </button>
+
+    <div class="page-dots" id="pageDots"></div>
+
+    <div class="page" id="p6">
+        <div class="cl-mesh"></div>
+        <p class="cl-over">A final word</p>
+        <h2 class="cl-big">For</h2>
+        <div class="cl-name">Doris</div>
+        <p class="cl-quote">"You are one of the most beautiful souls I have ever had the privilege of knowing. Not because life has been easy — but because you chose to remain soft, remain kind, and remain you, through all of it."</p>
+        <div class="cl-hearts"><span>💗</span><span>💙</span><span>🌸</span></div>
+        <p class="cl-footer">Made with love &nbsp;·&nbsp; For Doris &nbsp;·&nbsp; Happy 20th Birthday 🎀</p>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof tryMusic === 'function') tryMusic();
+        });
+    </script>
+</body>
+</html>

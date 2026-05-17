@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Birthday Wishes — Doris' Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Italiana&family=Lato:wght@300;400&family=Alex+Brush&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="cur-dot" id="cDot"></div>
+    <div class="cur-ring" id="cRing"></div>
+    <canvas id="bg-stars" class="visible"></canvas>
+    
+    <audio id="bgm" loop>
+        <source src="https://commons.wikimedia.org/wiki/Special:FilePath/Happy_Birthday_to_You_(piano).ogg" type="audio/ogg"/>
+    </audio>
+
+    <button class="music-pill paused" id="mBtn">
+        <div class="mbars"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>
+        <span id="mLbl">Play music</span>
+    </button>
+
+    <div class="page-dots" id="pageDots"></div>
+
+    <div class="page dark-page" id="p5">
+        <div class="neb" style="width:60vw;height:40vw;max-width:580px;background:rgba(107,142,240,.1);top:-5%;right:-10%;"></div>
+        <div class="neb" style="width:45vw;height:35vw;max-width:460px;background:rgba(232,84,122,.08);bottom:0;left:-5%;"></div>
+        <div class="cosmos-planet pl-w1"></div>
+        <div class="cosmos-planet pl-w2"></div>
+        <div class="shoot shoot-1" style="animation-delay:1s;"></div>
+        <div class="ch-lbl blue">Birthday wishes</div>
+        <h2 class="sec-title blue-em">Everything I'm wishing<br/><em>for you this year</em></h2>
+        <div class="wish-grid">
+            <div class="wi a"><h3 class="wi-title">Joy without reason</h3><p class="wi-txt">May you wake up more mornings than not feeling genuinely happy — not because everything is perfect, but because you are at peace.</p></div>
+            <div class="wi b"><h3 class="wi-title">Open doors everywhere</h3><p class="wi-txt">Every opportunity you've been reaching for — may this be the year it finally reaches back. The right doors at exactly the right time.</p></div>
+            <div class="wi c"><h3 class="wi-title">Abundance in all forms</h3><p class="wi-txt">Financial, emotional, spiritual — may this year overflow. You deserve comfort, security, and the luxury of choosing freely.</p></div>
+            <div class="wi e"><h3 class="wi-title">Love that finds you</h3><p class="wi-txt">Consistent, chosen, kind love. May every relationship add to you, never subtract. You deserve the real thing.</p></div>
+            <div class="wi d"><h3 class="wi-title">Growth that excites you</h3><p class="wi-txt">May you look back at the end of this year and barely recognise today's version of yourself — in the best possible way.</p></div>
+            <div class="wi f"><h3 class="wi-title">Protection over your peace</h3><p class="wi-txt">What is meant for you will not miss you. May everything that isn't fall away cleanly, without drama, without loss.</p></div>
+        </div>
+        <a href="closing.html" class="pg-next">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M5 1L9 5L5 9M1 5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Next
+        </a>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof tryMusic === 'function') tryMusic();
+        });
+    </script>
+</body>
+</html>

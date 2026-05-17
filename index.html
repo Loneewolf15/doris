@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>For Doris — Happy Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Italiana&family=Lato:wght@300;400&family=Alex+Brush&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="cur-dot" id="cDot"></div>
+    <div class="cur-ring" id="cRing"></div>
+    <canvas id="bg-stars"></canvas>
+    <canvas id="rain" class="visible"></canvas>
+    
+    <audio id="bgm" loop>
+        <source src="https://commons.wikimedia.org/wiki/Special:FilePath/Happy_Birthday_to_You_(piano).ogg" type="audio/ogg"/>
+    </audio>
+
+    <button class="music-pill paused" id="mBtn">
+        <div class="mbars"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>
+        <span id="mLbl">Play music</span>
+    </button>
+
+    <div class="page-dots" id="pageDots"></div>
+
+    <!-- CONFETTI SCREEN -->
+    <div id="conf-screen">
+        <div class="door-l"></div><div class="door-r"></div>
+        <canvas id="conf-canvas"></canvas>
+        <div class="door-txt">
+            <div class="door-txt-main">For Doris</div>
+            <div class="door-txt-sub">Happy 20th 🎀</div>
+        </div>
+    </div>
+
+    <!-- GATE / COUNTDOWN -->
+    <div id="gate">
+        <div class="gate-mesh"></div>
+        <div id="gLines"></div>
+        <div class="gate-inner">
+            <p class="gate-over">A message crafted for you</p>
+            <h1 class="gate-big">Happy<br/>Birthday</h1>
+            <div class="gate-script">Doris</div>
+            <div class="gate-ring">
+                <svg viewBox="0 0 100 100"><circle class="gtrk" cx="50" cy="50" r="45"/><circle class="gprg" cx="50" cy="50" r="45" id="gprg"/></svg>
+                <div class="gate-num" id="gNum">5</div>
+            </div>
+            <p class="skip-cue">Tap anywhere to enter</p>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HERO -->
+    <div class="page" id="p1">
+        <div class="p1-hr" style="top:30%"></div>
+        <div class="p1-hr" style="top:65%"></div>
+        <p class="p1-eyebrow">Vol. I &nbsp;·&nbsp; The Birthday Edition &nbsp;·&nbsp; For Doris</p>
+        <div class="p1-display">
+            <div class="p1-hero-line">
+                <h1 class="p1-h1">Hap<span class="out">py</span></h1>
+                <div class="p1-20">20<sup>th</sup></div>
+                <h1 class="p1-h1 petal">Birth</h1>
+            </div>
+            <div class="p1-name-row">
+                <div class="p1-line"></div>
+                <div class="p1-name">day, Doris</div>
+            </div>
+            <p class="p1-tagline">You are the kind of rare that doesn't come around twice.<br/>Today, we celebrate every inch of you.</p>
+        </div>
+        <div class="heart-btn-wrap">
+            <a href="moments.html" class="heart-btn" id="heartBtn" aria-label="Open your gift">
+                <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 85 C50 85 5 55 5 28 C5 13 17 3 30 3 C38 3 45 8 50 15 C55 8 62 3 70 3 C83 3 95 13 95 28 C95 55 50 85 50 85Z"/>
+                </svg>
+                <span class="heart-label">click me</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        /* ══════════ CONFETTI / DOOR SCREEN ══════════ */
+        const confScr = document.getElementById('conf-screen');
+        const confCv = document.getElementById('conf-canvas'), confCtx = confCv.getContext('2d');
+        confCv.width = innerWidth; confCv.height = innerHeight;
+        const CCOLS = ['#E8547A', '#F2B8C9', '#2B4BC7', '#6B8EF0', '#C5D4FF', '#EDE0D0', '#FAF6F0', '#C89A5A'];
+        let cPieces = [], cRunning = false;
+        function makeConf(n) { cPieces = Array.from({ length: n }, () => ({ x: Math.random() * confCv.width, y: -20 - Math.random() * confCv.height * .3, w: 6 + Math.random() * 10, h: 3 + Math.random() * 6, rot: Math.random() * Math.PI * 2, rv: (Math.random() - .5) * .2, vx: (Math.random() - .5) * 4, vy: 2 + Math.random() * 4, col: CCOLS[Math.floor(Math.random() * CCOLS.length)], sh: ['rect', 'circle', 'ribbon'][Math.floor(Math.random() * 3)], a: 1, drift: Math.sin(Math.random() * Math.PI * 2), ds: .02 + Math.random() * .03, da: 1 + Math.random() * 2 })); }
+        function drawConf() {
+            if (!cRunning) return;
+            confCtx.clearRect(0, 0, confCv.width, confCv.height);
+            let alive = false;
+            cPieces.forEach(p => { p.y += p.vy; p.x += p.vx + Math.sin(p.drift) * p.da; p.drift += p.ds; p.rot += p.rv; if (p.y > confCv.height + 30) p.a -= .04; if (p.a > 0) alive = true; confCtx.save(); confCtx.globalAlpha = Math.max(0, p.a); confCtx.translate(p.x, p.y); confCtx.rotate(p.rot); confCtx.fillStyle = p.col; if (p.sh === 'circle') { confCtx.beginPath(); confCtx.arc(0, 0, p.w / 2, 0, Math.PI * 2); confCtx.fill(); } else if (p.sh === 'ribbon') { confCtx.beginPath(); confCtx.moveTo(-p.w / 2, 0); confCtx.quadraticCurveTo(0, -p.h, p.w / 2, 0); confCtx.quadraticCurveTo(0, p.h, -p.w / 2, 0); confCtx.fill(); } else { confCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); } confCtx.restore(); });
+            if (alive) requestAnimationFrame(drawConf); else { confCtx.clearRect(0, 0, confCv.width, confCv.height); cRunning = false; }
+        }
+        function burstConf() { makeConf(180); cRunning = true; drawConf(); }
+
+        let seqDone = false;
+        function runSeq() {
+            if (seqDone) return; seqDone = true;
+            setTimeout(() => {
+                confScr.classList.add('open');
+                setTimeout(burstConf, 200);
+                setTimeout(() => { confScr.classList.add('exit'); startGate(); }, 2400);
+            }, 1300);
+        }
+        confScr.addEventListener('click', () => { if (!seqDone) { seqDone = true; confScr.classList.add('exit'); startGate(); } });
+        confScr.addEventListener('touchend', e => { e.preventDefault(); if (!seqDone) { seqDone = true; confScr.classList.add('exit'); startGate(); } });
+        window.addEventListener('load', runSeq);
+
+        /* gate lines */
+        const gLines = document.getElementById('gLines');
+        for (let i = 0; i < 16; i++) { const l = document.createElement('div'); l.className = 'gate-hr'; l.style.top = `${(i + 1) * 6}%`; gLines.appendChild(l); }
+
+        /* ══════════ GATE COUNTDOWN ══════════ */
+        const gateEl = document.getElementById('gate'), gNum = document.getElementById('gNum'), gprg = document.getElementById('gprg');
+        const circ = 283; gprg.style.strokeDasharray = circ;
+        let gc = 5, gT = null;
+        function setP(n) { gprg.style.strokeDashoffset = circ * (1 - n / 5); } setP(5);
+        function startGate() {
+            gc = 5; gNum.textContent = gc; setP(5);
+            gT = setInterval(() => { gc--; gNum.textContent = gc; setP(gc); if (gc <= 0) { clearInterval(gT); openSite(); } }, 1000);
+        }
+        function openSite() {
+            gateEl.classList.add('exit');
+            if (typeof tryMusic === 'function') tryMusic();
+            document.getElementById('bg-stars').classList.add('visible');
+        }
+        gateEl.addEventListener('click', () => { if (gT) clearInterval(gT); openSite(); });
+        gateEl.addEventListener('touchend', e => { e.preventDefault(); if (gT) clearInterval(gT); openSite(); });
+
+        document.getElementById('heartBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            spawnHearts(50);
+            setTimeout(() => window.location.href = 'moments.html', 400);
+        });
+    </script>
+</body>
+</html>
